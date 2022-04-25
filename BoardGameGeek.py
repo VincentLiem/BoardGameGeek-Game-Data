@@ -5,7 +5,7 @@ from selenium.common.exceptions import NoSuchElementException
 import csv
 from pathlib import Path
 
-game_list = input('Enter games seperated by "|" >>')
+game_list = input('Enter games seperated by "|" >> ')
 game_list = (game_list .split('|'))
 browser=webdriver.Chrome()
 
