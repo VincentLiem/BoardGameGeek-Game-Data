@@ -27,7 +27,7 @@ for game in game_list:
     if csv_file.exists():
         with open('BoardGameGeek Game Data.csv', 'a',newline='') as save:
             writer = csv.writer(save)
-            writer.writerow([game_name, game_rank, game_URL])
+            writer.writerow([game_name, game_rank, player_count, recomended_player_count, game_URL])
     else:
         with open('BoardGameGeek Game Data.csv', 'a',newline='') as save:
             writer = csv.writer(save)
