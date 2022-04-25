@@ -19,6 +19,10 @@ for game in game_list:
     game_rank = game_rank.text
     first_result.click()
     game_URL = browser.current_url
+    player_count = browser.find_element(By.CLASS_NAME, 'gameplay-item-primary')
+    recomended_player_count = browser.find_element(By.CLASS_NAME, 'gameplay-item-secondary')
+    player_count=player_count.text
+    recomended_player_count=recomended_player_count.text
     csv_file = Path('BoardGameGeek Game Data.csv')
     if csv_file.exists():
         with open('BoardGameGeek Game Data.csv', 'a',newline='') as save:
@@ -27,6 +31,6 @@ for game in game_list:
     else:
         with open('BoardGameGeek Game Data.csv', 'a',newline='') as save:
             writer = csv.writer(save)
-            writer.writerow(['Game Name', 'Rank', 'BGG URL'])                
-            writer.writerow([game_name, game_rank, game_URL])
+            writer.writerow(['Game Name', 'Rank','Player Count','Recommended Player Count', 'BGG URL'])                
+            writer.writerow([game_name, game_rank, player_count, recomended_player_count, game_URL])
 browser.quit
