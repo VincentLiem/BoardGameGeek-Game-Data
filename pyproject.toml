@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "project"
-version = "0.1.0"
+name = "BoardGameGeek-Scrape-Game-Data"
+version = "1"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["Vincent"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
