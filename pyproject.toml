@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "BoardGameGeek-Scrape-Game-Data"
+name = "Selenium-Scrape-Game-Information"
 version = "1"
 description = ""
 authors = ["Vincent"]
