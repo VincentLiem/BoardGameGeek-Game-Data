@@ -7,8 +7,8 @@ from pathlib import Path
 game_list = input('Enter games seperated by "," >>')
 game_list = (game_list .split(','))
 browser=webdriver.Chrome()
-browser.get('https://boardgamegeek.com/')
 for game in game_list:
+    browser.get('https://boardgamegeek.com/')
     search_bar = browser.find_element(By.NAME, 'searchTerm')
     search_bar.send_keys(game)
     search_bar.send_keys(Keys.ENTER)
@@ -22,7 +22,7 @@ for game in game_list:
     game_rating = game_rating.text
     csv_file = Path('BoardGameGeek Game Data.csv')
     if csv_file.exists():
-        with open('Yearly Cost.csv', 'a',newline='') as save:
+        with open('BoardGameGeek Game Data.csv', 'a',newline='') as save:
             writer = csv.writer(save)
             writer.writerow([game_name, game_rating, game_rank])
     else:
