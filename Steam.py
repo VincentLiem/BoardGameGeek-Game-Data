@@ -17,14 +17,18 @@ for game in game_list:
     game_name = game_name.text
     first_result.click()
     game_URL = browser.current_url
+    release_date = browser.find_element(By.CLASS_NAME, 'date')
+    recent_reviews = browser.find_element(By.CLASS_NAME, 'game_review_summary')
+    recent_reviews = recent_reviews.text
+    release_date = release_date.text
     csv_file = Path('Steam Game Date.csv')
     if csv_file.exists():
         with open('Steam Game Date.csv', 'a',newline='') as save:
             writer = csv.writer(save)
-            writer.writerow([game_name, game_URL])
+            writer.writerow([game_name, release_date, recent_reviews, game_URL])
     else:
         with open('Steam Game Date.csv', 'a',newline='') as save:
             writer = csv.writer(save)
-            writer.writerow(['Game Name', 'Steam URL'])                
-            writer.writerow([game_name, game_URL])
+            writer.writerow(['Game Name', 'Release Date', 'Recent Reviews', 'Steam URL'])                
+            writer.writerow([game_name, release_date, recent_reviews, game_URL])
 browser.quit
