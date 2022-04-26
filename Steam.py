@@ -22,8 +22,10 @@ for game in game_list:
         game_URL = browser.current_url
         release_date = browser.find_element(By.CLASS_NAME, 'date')
         recent_reviews = browser.find_element(By.CLASS_NAME, 'game_review_summary')
+        all_reviews = browser.find_element(By.CLASS_NAME, 'game_review_summary:nth-child(2)')
         recent_reviews = recent_reviews.text
         release_date = release_date.text
+        all_reviews = all_reviews.text
         csv_file = Path('Steam Game Date.csv')
         if csv_file.exists():
             with open('Steam Game Date.csv', 'a',newline='') as save:
@@ -32,8 +34,8 @@ for game in game_list:
         else:
             with open('Steam Game Date.csv', 'a',newline='') as save:
                 writer = csv.writer(save)
-                writer.writerow(['Game Name', 'Release Date', 'Recent Reviews', 'Steam URL'])                
-                writer.writerow([game_name, release_date, recent_reviews, game_URL])
+                writer.writerow(['Game Name', 'Release Date', 'Recent Reviews', 'All Reviews', 'Steam URL'])                
+                writer.writerow([game_name, release_date, recent_reviews, all_reviews, game_URL])
     except NoSuchElementException:
          print(game + ' not found, skipped')
 
