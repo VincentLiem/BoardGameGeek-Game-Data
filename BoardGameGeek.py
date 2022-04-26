@@ -5,6 +5,9 @@ from selenium.common.exceptions import NoSuchElementException
 import csv
 from pathlib import Path
 
+def write_fields(x):
+    x.writerow([game_name, game_rank, weight, play_time, player_count, recomended_player_count, game_URL])
+
 game_list = input('Enter games seperated by "|" >> ')
 game_list = (game_list .split('|'))
 browser=webdriver.Chrome()
@@ -37,12 +40,12 @@ for game in game_list:
         if csv_file.exists():
             with open('BoardGameGeek Game Data.csv', 'a',newline='') as save:
                 writer = csv.writer(save)
-                writer.writerow([game_name, game_rank, weight, play_time, player_count, recomended_player_count, game_URL])
+                write_fields(writer)
         else:
             with open('BoardGameGeek Game Data.csv', 'a',newline='') as save:
                 writer = csv.writer(save)
                 writer.writerow(['Game Name', 'Rank', 'Weight', 'Play Time', 'Player Count','Recommended Player Count', 'BGG URL'])                
-                writer.writerow([game_name, game_rank, weight, play_time, player_count, recomended_player_count, game_URL])
+                write_fields(writer)
     except NoSuchElementException:
          print(game + ' not found, skipped')
 
