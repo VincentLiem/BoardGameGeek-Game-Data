@@ -6,7 +6,7 @@ import csv
 from pathlib import Path
 
 def write_fields(x):
-    x.writerow([game_name, game_rank, weight, play_time, player_count, recomended_player_count, game_URL])
+    x.writerow([game_name, game_rating, game_rank, weight, play_time, player_count, recomended_player_count, game_URL])
 
 game_list = input('Enter games seperated by "|" >> ')
 game_list = (game_list .split('|'))
@@ -25,10 +25,12 @@ for game in game_list:
         game_rank = game_rank.text
         first_result.click()
         game_URL = browser.current_url
+        game_rating = browser.find_element(By.CSS_SELECTOR, 'span[ng-show="showRating"]')
         player_count = browser.find_element(By.CLASS_NAME, 'gameplay-item-primary')
         recomended_player_count = browser.find_element(By.CLASS_NAME, 'gameplay-item-secondary')
         play_time = browser.find_element(By.CLASS_NAME, 'gameplay-item:nth-child(2)')
         weight = browser.find_element(By.CLASS_NAME, 'gameplay-item:nth-child(4)')
+        game_rating = game_rating.text
         player_count=player_count.text
         recomended_player_count=recomended_player_count.text
         play_time = play_time.text
@@ -44,7 +46,7 @@ for game in game_list:
         else:
             with open('BoardGameGeek Game Data.csv', 'a',newline='') as save:
                 writer = csv.writer(save)
-                writer.writerow(['Game Name', 'Rank', 'Weight', 'Play Time', 'Player Count','Recommended Player Count', 'BGG URL'])                
+                writer.writerow(['Game Name', 'Rating', 'Rank', 'Weight', 'Play Time', 'Player Count','Recommended Player Count', 'BGG URL'])                
                 write_fields(writer)
     except NoSuchElementException:
          print(game + ' not found, skipped')
