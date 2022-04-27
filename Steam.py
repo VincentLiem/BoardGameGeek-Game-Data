@@ -26,7 +26,7 @@ for game in game_list:
         try: 
             price = browser.find_element(By.CLASS_NAME, 'game_purchase_price') #doesn't exist during sale
         except NoSuchElementException:
-             price = browser.find_element(By.CLASS_NAME, 'discount_original_price') #orginal price during sale
+             price = browser.find_element(By.CLASS_NAME, 'discount_original_price') #original price during sale
         release_date = browser.find_element(By.CLASS_NAME, 'date')
         recent_reviews = browser.find_element(By.CLASS_NAME, 'game_review_summary')
         all_reviews = browser.find_element(By.CLASS_NAME, 'game_review_summary:nth-child(2)')
