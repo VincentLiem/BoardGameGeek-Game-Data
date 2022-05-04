@@ -20,7 +20,10 @@ for game in game_list:
     try:
         first_result = browser.find_element(By.CLASS_NAME, 'primary')
         game_name = browser.find_element(By.CLASS_NAME, 'primary')
-        game_rank = browser.find_element(By.CLASS_NAME, 'collection_rank')
+        try:
+            game_rank = browser.find_element(By.CLASS_NAME, 'collection_rank')
+        except NoSuchElementException:
+            game_rank = 'N/A'
         game_name = game_name.text
         game_rank = game_rank.text
         first_result.click()
