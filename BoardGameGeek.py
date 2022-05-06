@@ -8,14 +8,14 @@ from pathlib import Path
 def write_fields(x):
     x.writerow([game_name, type, game_rating, game_rank, weight, play_time, player_count, recomended_player_count, game_URL])
 
-def add_to_csv(x):
+def add_to_csv(file_name):
     csv_file = Path()
     if csv_file.exists():
-        with open(x, 'a',newline='') as save:
+        with open(file_name, 'a',newline='') as save:
             writer = csv.writer(save)
             write_fields(writer)
     else:
-        with open(x, 'a',newline='') as save:
+        with open(file_name, 'a',newline='') as save:
             writer = csv.writer(save)
             writer.writerow(['Game Name', 'Type', 'Rating', 'Rank', 'Weight', 'Play Time', 'Player Count','Recommended Player Count', 'BGG URL'])               
             write_fields(writer)
