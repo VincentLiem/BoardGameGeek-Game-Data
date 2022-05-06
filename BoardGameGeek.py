@@ -19,20 +19,20 @@ for game in game_list:
     search_bar.send_keys(Keys.ENTER)
     try:
         first_result = browser.find_element(By.CLASS_NAME, 'primary')
-        game_name = browser.find_element(By.CLASS_NAME, 'primary')
-        try:
-            game_rank = browser.find_element(By.CLASS_NAME, 'collection_rank')
-        except NoSuchElementException:
-            game_rank = 'N/A'
-        game_name = game_name.text
-        game_rank = game_rank.text
         first_result.click()
         game_URL = browser.current_url
+        game_name = browser.find_element(By.CSS_SELECTOR, 'h1>a[class="ng-binding"]')
+        try:
+            game_rank = browser.find_element(By.CSS_SELECTOR, 'a[class="rank-value ng-binding ng-scope"]')
+        except NoSuchElementException:
+            game_rank = 'N/A'
         game_rating = browser.find_element(By.CSS_SELECTOR, 'span[ng-show="showRating"]')
         player_count = browser.find_element(By.CLASS_NAME, 'gameplay-item-primary')
         recomended_player_count = browser.find_element(By.CLASS_NAME, 'gameplay-item-secondary')
         play_time = browser.find_element(By.CLASS_NAME, 'gameplay-item:nth-child(2)')
         weight = browser.find_element(By.CLASS_NAME, 'gameplay-item:nth-child(4)')
+        game_name = game_name.text
+        game_rank = game_rank.text
         game_rating = game_rating.text
         player_count=player_count.text
         recomended_player_count=recomended_player_count.text
