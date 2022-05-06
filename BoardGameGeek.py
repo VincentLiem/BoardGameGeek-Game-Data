@@ -8,14 +8,14 @@ from pathlib import Path
 def write_fields(x):
     x.writerow([game_name, type, game_rating, game_rank, weight, play_time, player_count, recomended_player_count, game_URL])
 
-def add_to_csv():
-    csv_file = Path('BoardGameGeek Game Data.csv')
+def add_to_csv(x):
+    csv_file = Path()
     if csv_file.exists():
-        with open('BoardGameGeek Game Data.csv', 'a',newline='') as save:
+        with open(x, 'a',newline='') as save:
             writer = csv.writer(save)
             write_fields(writer)
     else:
-        with open('BoardGameGeek Game Data.csv', 'a',newline='') as save:
+        with open(x, 'a',newline='') as save:
             writer = csv.writer(save)
             writer.writerow(['Game Name', 'Type', 'Rating', 'Rank', 'Weight', 'Play Time', 'Player Count','Recommended Player Count', 'BGG URL'])               
             write_fields(writer)
@@ -68,7 +68,7 @@ if __name__ == '__main__':
             first_result = browser.find_element(By.CLASS_NAME, 'primary')
             first_result.click()
             scrape_game_page()
-            add_to_csv()
+            add_to_csv('BoardGameGeek Game Data.csv')
         except NoSuchElementException:
             print(game + ' not found, skipped')
 
