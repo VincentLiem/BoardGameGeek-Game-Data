@@ -49,21 +49,22 @@ def scrape_game_page():
     weight = weight.split('\n', 1)[0]
     weight = weight.replace('Weight: ','')
 
-game_list = input('Enter games seperated by "|" >> ')
-game_list = (game_list .split('|'))
-browser=webdriver.Chrome()
+if __name__ == '__main__':
+    game_list = input('Enter games seperated by "|" >> ')
+    game_list = (game_list .split('|'))
+    browser=webdriver.Chrome()
 
-for game in game_list:
-    browser.get('https://boardgamegeek.com/')
-    search_bar = browser.find_element(By.NAME, 'searchTerm')
-    search_bar.send_keys(game)
-    search_bar.send_keys(Keys.ENTER)
-    try:
-        first_result = browser.find_element(By.CLASS_NAME, 'primary')
-        first_result.click()
-        scrape_game_page()
-        add_to_csv()
-    except NoSuchElementException:
-         print(game + ' not found, skipped')
+    for game in game_list:
+        browser.get('https://boardgamegeek.com/')
+        search_bar = browser.find_element(By.NAME, 'searchTerm')
+        search_bar.send_keys(game)
+        search_bar.send_keys(Keys.ENTER)
+        try:
+            first_result = browser.find_element(By.CLASS_NAME, 'primary')
+            first_result.click()
+            scrape_game_page()
+            add_to_csv()
+        except NoSuchElementException:
+            print(game + ' not found, skipped')
 
-browser.quit
+    browser.quit
