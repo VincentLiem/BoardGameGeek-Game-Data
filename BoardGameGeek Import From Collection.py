@@ -6,7 +6,7 @@ import csv
 from pathlib import Path
 
 def write_fields(x):
-    x.writerow([game_name, game_rating, game_rank, weight, play_time, player_count, recomended_player_count, game_URL])
+    x.writerow([game_name, type, game_rating, game_rank, weight, play_time, player_count, recomended_player_count, game_URL])
 
 username = input('Enter BoardGameGeek username >> ')
 browser=webdriver.Chrome()
@@ -17,12 +17,16 @@ links = browser.find_elements(By.TAG_NAME, 'a.primary')
 
 for link in links:
     link = link.get_attribute("href")
-    if str(link).find('https://boardgamegeek.com/boardgame/') != -1:
+    if str(link).find('https://boardgamegeek.com/boardgame/') != -1 or str(link).find('https://boardgamegeek.com/boardgameexpansion/') != -1:
         game_links.append(link)
-
 for game in game_links:
     browser.get(game)
     game_URL = browser.current_url
+    type == 'N/A'
+    if str(game_URL).find('https://boardgamegeek.com/boardgame/') != -1:
+        type = "Game"
+    if str(game_URL).find('https://boardgamegeek.com/boardgameexpansion/') != -1:
+        type = "Expansion"
     game_name = browser.find_element(By.CSS_SELECTOR, 'h1>a[class="ng-binding"]')
     try:
         game_rank = browser.find_element(By.CSS_SELECTOR, 'a[class="rank-value ng-binding ng-scope"]')
@@ -51,7 +55,7 @@ for game in game_links:
     else:
         with open(username + ' BoardGameGeek Collection.csv', 'a',newline='') as save:
             writer = csv.writer(save)
-            writer.writerow(['Game Name', 'Rating', 'Rank', 'Weight', 'Play Time', 'Player Count','Recommended Player Count', 'BGG URL'])                
+            writer.writerow(['Game Name', 'Type', 'Rating', 'Rank', 'Weight', 'Play Time', 'Player Count','Recommended Player Count', 'BGG URL'])                
             write_fields(writer)
             
 browser.quit
