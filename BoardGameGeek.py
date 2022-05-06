@@ -49,6 +49,11 @@ def scrape_game_page():
     weight = weight.split('\n', 1)[0]
     weight = weight.replace('Weight: ','')
 
+def driver(x):
+        global browser
+        browser=webdriver.Chrome()
+        return browser.get(x)
+
 if __name__ == '__main__':
     game_list = input('Enter games seperated by "|" >> ')
     game_list = (game_list .split('|'))
