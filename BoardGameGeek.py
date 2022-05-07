@@ -5,20 +5,10 @@ from selenium.common.exceptions import NoSuchElementException
 import csv
 from pathlib import Path
 
-def write_fields(x):
-    x.writerow([game_name, type, game_rating, game_rank, weight, play_time, player_count, recomended_player_count, game_URL])
-
-def add_to_csv(file_name):
-    csv_file = Path()
-    if csv_file.exists():
-        with open(file_name, 'a',newline='') as save:
-            writer = csv.writer(save)
-            write_fields(writer)
-    else:
-        with open(file_name, 'a',newline='') as save:
-            writer = csv.writer(save)
-            writer.writerow(['Game Name', 'Type', 'Rating', 'Rank', 'Weight', 'Play Time', 'Player Count','Recommended Player Count', 'BGG URL'])               
-            write_fields(writer)
+def open_site(url):
+        global browser
+        browser=webdriver.Chrome()
+        return browser.get(url)
 
 def scrape_game_page():
     global game_name, type, game_rating, game_rank, weight, play_time, player_count, recomended_player_count, game_URL
@@ -49,10 +39,20 @@ def scrape_game_page():
     weight = weight.split('\n', 1)[0]
     weight = weight.replace('Weight: ','')
 
-def driver(x):
-        global browser
-        browser=webdriver.Chrome()
-        return browser.get(x)
+def add_to_csv(file_name):
+    csv_file = Path()
+    if csv_file.exists():
+        with open(file_name, 'a',newline='') as save:
+            writer = csv.writer(save)
+            write_fields(writer)
+    else:
+        with open(file_name, 'a',newline='') as save:
+            writer = csv.writer(save)
+            writer.writerow(['Game Name', 'Type', 'Rating', 'Rank', 'Weight', 'Play Time', 'Player Count','Recommended Player Count', 'BGG URL'])               
+            write_fields(writer)
+
+def write_fields(x):
+    x.writerow([game_name, type, game_rating, game_rank, weight, play_time, player_count, recomended_player_count, game_URL])
 
 if __name__ == '__main__':
     game_list = input('Enter games seperated by "|" >> ')
