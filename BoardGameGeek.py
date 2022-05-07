@@ -40,7 +40,7 @@ def scrape_game_page():
     weight = weight.replace('Weight: ','')
 
 def add_to_csv(file_name):
-    csv_file = Path()
+    csv_file = Path(file_name)
     if csv_file.exists():
         with open(file_name, 'a',newline='') as save:
             writer = csv.writer(save)
