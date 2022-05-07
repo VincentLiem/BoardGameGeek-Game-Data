@@ -47,4 +47,4 @@ for game in game_list:
     except NoSuchElementException:
          print(game + ' not found, skipped')
 
-browser.quit
+browser.quit()
