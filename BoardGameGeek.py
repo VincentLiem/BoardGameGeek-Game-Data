@@ -72,4 +72,4 @@ if __name__ == '__main__':
         except NoSuchElementException:
             print(game + ' not found, skipped')
 
-    browser.quit
+    browser.quit()
