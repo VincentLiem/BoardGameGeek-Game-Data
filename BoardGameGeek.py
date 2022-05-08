@@ -5,12 +5,12 @@ from selenium.common.exceptions import NoSuchElementException
 import csv
 from pathlib import Path
 
-def OpenSite(url):
+def open_site(url):
         global browser
         browser=webdriver.Chrome()
         return browser.get(url)
 
-def ScrapeGamePage():
+def scrape_game_page():
     global game_name, type, game_rating, game_rank, weight, play_time, player_count, recomended_player_count, game_URL
     game_URL = browser.current_url
     type = 'N/A'
@@ -39,7 +39,7 @@ def ScrapeGamePage():
     weight = weight.split('\n', 1)[0]
     weight = weight.replace('Weight: ','')
 
-def AddToCSV(file_name):
+def add_to_csv(file_name):
     csv_file = Path(file_name)
     if csv_file.exists():
         with open(file_name, 'a',newline='') as save:
@@ -49,9 +49,9 @@ def AddToCSV(file_name):
         with open(file_name, 'a',newline='') as save:
             writer = csv.writer(save)
             writer.writerow(['Game Name', 'Type', 'Rating', 'Rank', 'Weight', 'Play Time', 'Player Count','Recommended Player Count', 'BGG URL'])               
-            WriteFields(writer)
+            write_fields(writer)
 
-def WriteFields(x):
+def write_fields(x):
     x.writerow([game_name, type, game_rating, game_rank, weight, play_time, player_count, recomended_player_count, game_URL])
 
 if __name__ == '__main__':
@@ -67,8 +67,8 @@ if __name__ == '__main__':
         try:
             first_result = browser.find_element(By.CLASS_NAME, 'primary')
             first_result.click()
-            ScrapeGamePage()
-            AddToCSV('BoardGameGeek Game Data.csv')
+            scrape_game_page()
+            add_to_csv('BoardGameGeek Game Data.csv')
         except NoSuchElementException:
             print(game + ' not found, skipped')
 
