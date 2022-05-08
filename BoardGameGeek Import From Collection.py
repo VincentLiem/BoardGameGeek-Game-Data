@@ -13,8 +13,8 @@ for link in links:
 browser.quit()
 
 for game in game_links:
-    open_site(game)
-    scrape_game_page()
-    add_to_csv(username + ' BoardGameGeek Collection.csv')
+    OpenSite(game)
+    ScrapeGamePage()
+    AddToCSV(username + ' BoardGameGeek Collection.csv')
 
 browser.quit()
