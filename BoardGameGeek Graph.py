@@ -9,9 +9,9 @@ else:
 try:
     csv_file = pandas.read_csv (file, encoding = 'latin1')
     type = csv_file['Type']
+    #Game/Expansion Breakdown
     game = 0
     expansion = 0
-    #Game/Expansion Breakdown
     for item in type:
         if item == 'Game':
             game += 1
