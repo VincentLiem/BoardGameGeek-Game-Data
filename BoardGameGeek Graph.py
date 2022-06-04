@@ -43,7 +43,7 @@ try:
     labels = ['1','2','3','4']
     pyplot.bar(labels, bar_items)
     pyplot.xlabel("Weight")
-    pyplot.ylabel("Number of Games")
+    pyplot.ylabel('Number of Games')
     pyplot.title('Weight Breakdown')
     pyplot.show()
 except FileNotFoundError:
