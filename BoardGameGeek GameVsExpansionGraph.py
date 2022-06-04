@@ -14,7 +14,7 @@ try:
     pie_items = [game, expansion]
     labels = ["Games: " + str(game),"Expansions: " + str(expansion)]
     pyplot.pie(pie_items, labels=labels)
-    pyplot.title("Game/Expansion breakdown")
+    pyplot.title("Game/Expansion Breakdown")
     pyplot.show()
 except FileNotFoundError:
     print("BoardGameGeek Game Data.csv not created yet")
