@@ -1,6 +1,11 @@
 import pandas
 import matplotlib.pyplot as pyplot
 
+username = input('Enter username to use collection file or leave blank to use BoardGameGeek Game Data.csv >> ')
+if username == '':
+    file = 'BoardGameGeek Game Data.csv'
+else:
+    file = username + ' BoardGameGeek Collection.'
 try:
     csv_file = pandas.read_csv ('BoardGameGeek Game Data.csv', encoding = 'latin1')
     type = csv_file['Type']
@@ -17,4 +22,4 @@ try:
     pyplot.title("Game/Expansion Breakdown")
     pyplot.show()
 except FileNotFoundError:
-    print("BoardGameGeek Game Data.csv not created yet")
+    print(file + ' not found')
