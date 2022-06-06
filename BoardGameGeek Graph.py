@@ -1,15 +1,8 @@
 import pandas
 import matplotlib.pyplot as pyplot
 
-username = input('Enter username to use collection file or leave blank to use BoardGameGeek Game Data.csv >> ')
-if username == '':
-    file = 'BoardGameGeek Game Data.csv'
-else:
-    file = username + ' BoardGameGeek Collection.csv'
-try:
-    csv_file = pandas.read_csv (file, encoding = 'latin1')
+def game_expansion_breakdown(csv_file):
     type = csv_file['Type']
-    #Game/Expansion Breakdown
     game = 0
     expansion = 0
     for item in type:
@@ -22,7 +15,8 @@ try:
     pyplot.pie(pie_items, labels=labels)
     pyplot.title('Game/Expansion Breakdown')
     pyplot.show()
-    #Weight Breakdown
+
+def weight_breakdown(csv_file):
     csv_file_expansion_removed = csv_file[csv_file['Type'] == 'Game']
     weight_one = 0
     weight_two = 0
@@ -46,5 +40,16 @@ try:
     pyplot.ylabel('Number of Games')
     pyplot.title('Weight Breakdown')
     pyplot.show()
-except FileNotFoundError:
-    print(file + ' not found')
+
+if __name__ == '__main__':
+    username = input('Enter username to use collection file or leave blank to use BoardGameGeek Game Data.csv >> ')
+    if username == '':
+        file = 'BoardGameGeek Game Data.csv'
+    else:
+        file = username + ' BoardGameGeek Collection.csv'
+    try:
+        csv_file = pandas.read_csv (file, encoding = 'latin1')
+        game_expansion_breakdown(csv_file)
+        weight_breakdown(csv_file)
+    except FileNotFoundError:
+        print(file + ' not found')
