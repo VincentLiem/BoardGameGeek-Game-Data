@@ -1,55 +1,44 @@
 import pandas
 import matplotlib.pyplot as pyplot
 
-def game_expansion_breakdown(csv_file):
-    type = csv_file['Type']
-    game = 0
-    expansion = 0
-    for item in type:
-        if item == 'Game':
-            game += 1
-        if item == 'Expansion':
-            expansion += 1
-    pie_items = [game, expansion]
-    labels = ['Games: ' + str(game),'Expansions: ' + str(expansion)]
-    pyplot.pie(pie_items, labels=labels)
-    pyplot.title('Game/Expansion Breakdown')
+def pie_chart(csv_file):
+    item_name = csv_file['Item Name']
+    yearly_cost = csv_file['Yearly Cost']
+
+    total_cost = 0
+    for item in yearly_cost:
+        total_cost += item
+
+    percentage_list = []
+    for item in yearly_cost:
+        percentage = item / total_cost * 100
+        percentage = format(percentage, '.2f')
+        percentage_list.append(percentage)
+
+    string_yearly_cost =[]
+    for item in yearly_cost:
+        item = format(item, '.2f')
+        item = str(item)
+        string_yearly_cost.append(item)
+
+    pyplot.pie(yearly_cost, labels = item_name + ': $' + string_yearly_cost + '\n' + percentage_list + '%')
+    pyplot.title("Breakdown of Costs")
     pyplot.show()
 
-def weight_breakdown(csv_file):
-    csv_file_expansion_removed = csv_file[csv_file['Type'] == 'Game']
-    weight_one = 0
-    weight_two = 0
-    weight_three = 0
-    weight_four = 0
-    weight = csv_file_expansion_removed['Weight']
-    for item in weight:
-        item = item.split('/')[0]
-        if float(item) >=4:
-            weight_four += 1
-        elif float(item) >=3:
-            weight_three += 1
-        elif float(item) >=2:
-            weight_two += 1
-        elif float(item) >=1:
-            weight_one+= 1
-    bar_items = [weight_one,weight_two,weight_three,weight_four]
-    labels = ['1','2','3','4']
-    pyplot.bar(labels, bar_items)
-    pyplot.xlabel('Weight')
-    pyplot.ylabel('Number of Games')
-    pyplot.title('Weight Breakdown')
+def bar_graph(csv_file):
+    item_name = csv_file['Item Name']
+    yearly_cost = csv_file['Yearly Cost']
+
+    pyplot.bar(item_name, yearly_cost)
+    pyplot.title("Breakdown of Costs")
+    pyplot.xlabel = ('Cost Name')
+    pyplot.ylabel = ('Yearly Cost')
     pyplot.show()
 
 if __name__ == '__main__':
-    username = input('Enter username to use collection file or leave blank to use BoardGameGeek Game Data.csv >> ')
-    if username == '':
-        file = 'BoardGameGeek Game Data.csv'
-    else:
-        file = username + ' BoardGameGeek Collection.csv'
     try:
-        csv_file = pandas.read_csv (file, encoding = 'latin1')
-        game_expansion_breakdown(csv_file)
-        weight_breakdown(csv_file)
+        csv_file = pandas.read_csv ('Yearly Cost.csv')
+        pie_chart(csv_file)
+        bar_graph(csv_file)
     except FileNotFoundError:
-        print(file + ' not found')
+        print("Yearly Cost.csv not created yet")
