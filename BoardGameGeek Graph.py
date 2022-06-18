@@ -41,6 +41,30 @@ def weight_breakdown(csv_file):
     pyplot.title('Weight Breakdown')
     pyplot.show()
 
+def year_breakdown(csv_file):
+    csv_years = csv_file['Year']
+    csv_years_list = []
+    for year in csv_years:
+            csv_years_list.append(year)
+    csv_years_list.sort()
+    years_with_item = []
+    for year in csv_years_list:
+        if year not in years_with_item:
+            years_with_item.append(year)
+    bar_items = []
+    for item in years_with_item:
+        bar_items.append(0)
+    for item in csv_years_list:
+        if item in years_with_item:
+            position = years_with_item.index(item)
+            bar_items[position] += 1
+    labels = years_with_item
+    pyplot.bar(labels, bar_items)
+    pyplot.xlabel('Year')
+    pyplot.ylabel('Number of Games')
+    pyplot.title('Year Breakdown')
+    pyplot.show()
+
 if __name__ == '__main__':
     username = input('Enter username to use collection file or leave blank to use BoardGameGeek Game Data.csv >> ')
     if username == '':
@@ -51,5 +75,6 @@ if __name__ == '__main__':
         csv_file = pandas.read_csv (file, encoding = 'latin1')
         game_expansion_breakdown(csv_file)
         weight_breakdown(csv_file)
+        year_breakdown(csv_file)
     except FileNotFoundError:
         print(file + ' not found')
