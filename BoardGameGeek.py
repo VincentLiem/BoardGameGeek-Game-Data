@@ -11,7 +11,7 @@ def open_site(url):
         return browser.get(url)
 
 def scrape_game_page():
-    global game_name, type, game_rating, game_rank, weight, play_time, player_count, recomended_player_count, game_URL
+    global game_name, type, game_year, game_rating, game_rank, weight, play_time, player_count, recomended_player_count, game_URL
     game_URL = browser.current_url
     type = 'N/A'
     if str(game_URL).find('https://boardgamegeek.com/boardgame/') != -1:
@@ -24,12 +24,16 @@ def scrape_game_page():
         game_rank = game_rank.text
     except NoSuchElementException:
         game_rank = 'N/A'
+    game_year = browser.find_element(By.CSS_SELECTOR, 'span[class="game-year ng-binding ng-scope"]')
     game_rating = browser.find_element(By.CSS_SELECTOR, 'span[ng-show="showRating"]')
     player_count = browser.find_element(By.CLASS_NAME, 'gameplay-item-primary')
     recomended_player_count = browser.find_element(By.CLASS_NAME, 'gameplay-item-secondary')
     play_time = browser.find_element(By.CLASS_NAME, 'gameplay-item:nth-child(2)')
     weight = browser.find_element(By.CLASS_NAME, 'gameplay-item:nth-child(4)')
     game_name = game_name.text
+    game_year = game_year.text
+    game_year = game_year.replace('(','')
+    game_year = game_year.replace(')','')
     game_rating = game_rating.text
     player_count=player_count.text
     recomended_player_count=recomended_player_count.text
@@ -48,11 +52,11 @@ def add_to_csv(file_name):
     else:
         with open(file_name, 'a',newline='') as save:
             writer = csv.writer(save)
-            writer.writerow(['Game Name', 'Type', 'Rating', 'Rank', 'Weight', 'Play Time', 'Player Count','Recommended Player Count', 'BGG URL'])               
+            writer.writerow(['Game Name', 'Type', 'Year', 'Rating', 'Rank', 'Weight', 'Play Time', 'Player Count','Recommended Player Count', 'BGG URL'])               
             write_fields(writer)
 
 def write_fields(x):
-    x.writerow([game_name, type, game_rating, game_rank, weight, play_time, player_count, recomended_player_count, game_URL])
+    x.writerow([game_name, type, game_year, game_rating, game_rank, weight, play_time, player_count, recomended_player_count, game_URL])
 
 if __name__ == '__main__':
     game_list = input('Enter games seperated by "|" >> ')
